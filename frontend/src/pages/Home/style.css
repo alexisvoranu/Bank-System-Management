@@ -1,0 +1,44 @@
+.home{
+    background-image: linear-gradient(to right bottom, #051937, #033152, #004b6c, #006684, #0c829a);
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+}
+
+.home-text{
+    max-width: 100%;
+    display: inline-block;
+}
+
+.home .container{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 92vh;
+    background-color: transparent;
+}
+
+.home-header{
+    margin-top: 10%;
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+
+.home-background-image{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.home-text {
+    color: #fff;
+    overflow: hidden; 
+    white-space: nowrap; 
+    margin: 0 auto;
+    letter-spacing: .15em;
+  }
+  

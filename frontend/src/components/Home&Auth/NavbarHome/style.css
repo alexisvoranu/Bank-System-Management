@@ -1,0 +1,15 @@
+.navbar{
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(24, 200, 212);
+}
+
+#a1{
+    margin-left: 10px;
+    font-weight: bolder;
+}
+
+.navbar-nav {
+    cursor: pointer;
+    font-weight: bolder;
+}
