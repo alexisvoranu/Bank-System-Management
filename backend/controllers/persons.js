@@ -42,10 +42,28 @@ const remove = (req, res) => {
     res.send();
 }
 
+const login = async (req, res) => {
+    const { email, password } = req.body;
+
+    if(!email || !password){
+        return res.status(400).send({message: "The email or the password is missing"});
+    }
+
+    const foundPerson = await personsService.login(email, password);
+
+    if(!foundPerson){
+        return res.status(403).send({message: "The email or passwords are incorrect"});
+    }
+
+    res.status(200).json(foundPerson);
+
+}
+
 export {
     getPersons,
     getById,
     create,
     update,  
-    remove
+    remove,
+    login
 }

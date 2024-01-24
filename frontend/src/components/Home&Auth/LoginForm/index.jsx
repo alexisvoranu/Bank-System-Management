@@ -32,7 +32,7 @@ const LoginForm = () => {
     
         let loginURL = SERVER_URL;
     
-        loginURL += "/login";
+        loginURL += "/persons/login";
         
     
         fetch(loginURL, {
@@ -64,51 +64,16 @@ const LoginForm = () => {
 
     return (
         <>
-            {/* Formular de autentificare */}
-            {/* <form className='login-form-fields' onSubmit={handleLogin}>
-
-                <div class="form-floating mb-3">
-                    <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        placeholder="name@example.com"
-                        required
-                        onChange={onChangeEmail}
-                    />
-                    <label for="floatingInput">Email address</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input
-                        type="password"
-                        class="form-control"
-                        id="password"
-                        placeholder="Password"
-                        required
-                        onChange={onChangePassword}
-                    />
-                    <label for="floatingPassword">Password</label>
-                </div>
-
-                <button
-                    type="submit"
-                    class="btn btn-primary mb-3 btn-login"
-                >
-                    Login
-                </button>
-            </form> */}
-
-            <form>
-            <div class="mx-auto col-md-6" onSubmit={handleLogin}>
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" onChange={onChangeEmail}/>
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <form className="LoginForm" onSubmit={handleLogin}>
+            <div className="mx-auto col-md-3 LoginDiv">
+                <label className="label" htmlFor="email">Email address</label>
+                <input type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="someone@email.com" onChange={onChangeEmail}/>
             </div>
-            <div class="mx-auto col-md-6">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" onChange={onChangePassword}/>
+            <div className="mx-auto col-md-3 LoginDiv">
+                <label className="label" htmlFor="password">Password</label>
+                <input type="password" className="form-control" id="password" placeholder="Password" onChange={onChangePassword}/>
             </div>
-            <button id="btnSubmit" type="submit" class="btn btn-primary">Submit</button>
+            <button id="btnSubmit" type="submit" className="btn btn-primary">Login</button>
             </form>
 
             {/* Alert container */}

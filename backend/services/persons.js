@@ -60,3 +60,21 @@ export const remove = (id) => {
         }
     });
 }
+
+export const login = async (email, password) => {
+    const person = await Person.findOne({
+        where: { email: email }
+    });
+
+    if (!person) {
+        return null;
+    }
+
+    const match = await (password===person.password);
+
+    if (match) {
+        return person; 
+    } else {
+        return null;
+    }
+};

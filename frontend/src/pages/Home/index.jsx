@@ -8,7 +8,7 @@ const Home = () => {
         <div className='home'>
             <NavbarHome/>
             <div className='container'>
-                <div className='home-header'>Welcome to PI</div>
+                <div className='home-header'>Welcome to AFI Bank</div>
                 <div className='home-text'>A solution for online banking</div>
             </div>
         </div>

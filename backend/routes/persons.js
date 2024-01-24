@@ -12,3 +12,5 @@ router.put("/update", personController.update);
 router.delete("/remove/:id", personController.remove);
 
 router.post("/create", personController.create);
+
+router.post('/login', personController.login);

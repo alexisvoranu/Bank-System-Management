@@ -96,7 +96,7 @@ const SignupForm = () => {
 
             {/* Formular de înregistrare */}
              <form className='signup-form' onSubmit={handleSignup}>
-                <div className="mx-auto col-md-6 Inputform FirstForm">
+                <div className="mx-auto col-md-3 Inputform FirstForm">
                 <label htmlFor="floatingInput" className="form-label">Full Name</label>
                     <input
                         type="text"
@@ -108,10 +108,10 @@ const SignupForm = () => {
                     />
                    
                 </div>
-                <div className="mx-auto col-md-6 Inputform">
-                <label htmlFor="birthDate" className="form-label">Start Date and Time</label> 
+                <div className="mx-auto col-md-3 Inputform">
+                <label htmlFor="birthDate" className="form-label">Birth Date</label> 
                     <input
-                        type="datetime-local"
+                        type="date"
                         className="form-control"
                         id="birthDate"
                         onChange={onChangeBirthDate}
@@ -119,7 +119,7 @@ const SignupForm = () => {
                     />
                     
                 </div>
-                <div className="mx-auto col-md-6 Inputform">
+                <div className="mx-auto col-md-3 Inputform">
                 <label htmlFor="floatingInput" className="form-label">Email address</label>
                     <input
                         type="email"
@@ -131,7 +131,7 @@ const SignupForm = () => {
                     />
                     
                 </div>
-                <div className="mx-auto col-md-6 Inputform">
+                <div className="mx-auto col-md-3 Inputform">
                 <label htmlFor="floatingInput" className="form-label">Phone</label>
                     <input
                         type="number"
@@ -143,7 +143,7 @@ const SignupForm = () => {
                     />
                    
                 </div>
-                <div className="mx-auto col-md-6 Inputform">
+                <div className="mx-auto col-md-3 Inputform">
                 <label htmlFor="floatingPassword" className="form-label">Password</label>
                     <input
                         type="password"
