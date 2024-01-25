@@ -4,6 +4,8 @@ import { Home } from './pages/Home';
 import { Signup } from './pages/Signup';
 import { Login } from './pages/Login';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { UserHome } from './pages/UserHome';
+import { CreateAccount, CreateAccountForm } from './pages/CreateAccount';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path = "/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/userhome" element={<UserHome />} />
+        <Route path="/createAccount" element={<CreateAccount />} />
       </Routes>
     </Router>
     </div>

@@ -47,7 +47,7 @@ const LoginForm = () => {
             if (res.ok) {
                 
                 localStorage.setItem('userDetails', JSON.stringify(data));
-                navigate('/home');
+                navigate('/userhome');
                 
             } else {
                 throw new Error(data.message || 'An error occurred while trying to authenticate you!');

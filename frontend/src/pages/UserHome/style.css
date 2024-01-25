@@ -1,0 +1,21 @@
+.main-organizer{
+    min-height: 100vh;
+    height: 100%;
+    background-image: linear-gradient(to right bottom, #051937, #033152, #004b6c, #006684, #0c829a);
+}
+.header-greatings{
+    font-size: 3rem;
+    margin-top: 3em;
+    color: #fff;
+    overflow: hidden; 
+}
+
+.hello-text {
+    font-size: 3rem;
+    color: #fff;
+    overflow: hidden; 
+    white-space: nowrap; 
+    margin: 0 auto;
+    letter-spacing: .15em;
+  
+  }
