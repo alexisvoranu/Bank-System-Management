@@ -1,20 +1,33 @@
-.navbar{
-    font-size: 20px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: rgb(24, 200, 212);
+.navbar {
+  font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: rgb(24, 200, 212);
 }
 
-#a1{
-    margin-left: 10px;
-    font-weight: bolder;
+#a1 {
+  margin-left: 10px;
+  font-weight: bolder;
 }
 
 .navbar-nav {
-    cursor: pointer;
-    font-weight: bolder;
+  cursor: pointer;
+  font-weight: bolder;
 }
 
-.form-label
-{
-    margin-right: 15px;
+.form-label {
+  margin-right: 15px;
+}
+
+.tab-content,
+.tab-pane {
+  overflow: hidden !important;
+}
+
+/* .macro {
+  margin-left: 1000px;
+} */
+
+.nav1 {
+  flex-wrap: nowrap;
+  justify-content: center;
 }

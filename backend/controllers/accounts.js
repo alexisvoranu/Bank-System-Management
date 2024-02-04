@@ -19,7 +19,8 @@ const create = async (req, res) => {
         return res.status(404).send({ message: "Missing properties" });
     }
 
-    const existingAccounts = await accountsService.getAccounts({ iban: req.body.iban, dateOpened: req.body.dateOpened, currency: req.body.currency, value: req.body.value, type: req.body.type });
+    const existingAccounts = await accountsService.getAccounts({ iban: req.body.iban, dateOpened: req.body.dateOpened, expirationDate: req.body.expirationDate,
+        currency: req.body.currency, value: req.body.value, type: req.body.type, interest: req.body.interest });
     if (existingAccounts.length !== 0) {
         return res.status(400).send({ message: "Account already exists" });
     }

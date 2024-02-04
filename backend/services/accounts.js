@@ -14,7 +14,7 @@ export const getAccounts = async (query) => {
     });
 
     return await Account.findAll({
-        attributes: ['id', 'iban', 'dateOpened', 'currency', 'value', 'type'],
+        attributes: ['id', 'iban', 'dateOpened', 'expirationDate', 'currency', 'value', 'type', 'interest'],
         where: whereConditions
     });
 };
@@ -22,7 +22,7 @@ export const getAccounts = async (query) => {
 export const getById = async (id) => {
 
     return await Account.findOne({
-        attributes: ['id', 'iban', 'dateOpened', 'currency', 'value', 'type'],
+        attributes: ['id', 'iban', 'dateOpened', 'expirationDate', 'currency', 'value', 'type', 'interest'],
         where: {
             id: id
         }
@@ -63,7 +63,7 @@ export const remove = (id) => {
 
 export const getAccountsForPerson = async (id) => {
     return await Account.findAll({
-        attributes: ['id', 'iban', 'dateOpened', 'currency', 'value', 'type'],
+        attributes: ['id', 'iban', 'dateOpened', 'expirationDate', 'currency', 'value', 'type', 'interest'],
         where: {
             personId: id
         }

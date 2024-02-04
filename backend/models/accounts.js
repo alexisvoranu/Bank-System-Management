@@ -15,6 +15,10 @@ export const AccountTemplate = (db, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false,
         },
+        expirationDate: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
         currency: {
             type: DataTypes.STRING,
             allowNull: false
@@ -26,7 +30,12 @@ export const AccountTemplate = (db, DataTypes) => {
         type: {
             type: DataTypes.STRING,
             allowNull: false
-        }
+        },
+        interest: {
+            type: DataTypes.FLOAT,
+            allowNull: true
+        },
+        
     }, 
     {
         indexes: [
