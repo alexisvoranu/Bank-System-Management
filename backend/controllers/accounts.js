@@ -52,11 +52,21 @@ const getAccountsForPerson = async(req, res) => {
      res.status(200).json(foundAccountsList).send()
 }
 
+const getLastSavedIBAN = async (req, res) => {
+    try {
+        const lastSavedIBAN = await accountsService.getLastSavedIBAN();
+        res.status(200).send({ iban: lastSavedIBAN });
+    } catch (error) {
+        res.status(500).send({ message: "Error fetching last saved IBAN" });
+    }
+};
+
 export {
     getAccounts,
     getById,
     create,
     update,  
     remove,
-    getAccountsForPerson
+    getAccountsForPerson,
+    getLastSavedIBAN 
 }

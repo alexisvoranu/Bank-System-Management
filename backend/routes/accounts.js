@@ -9,6 +9,8 @@ router.get("/get/:id", accountController.getById);
 
 router.get("/getAccountsForPerson", accountController.getAccountsForPerson);
 
+router.get("/getLastIBAN", accountController.getLastSavedIBAN);
+
 router.put("/update", accountController.update);
 
 router.delete("/remove/:id", accountController.remove);

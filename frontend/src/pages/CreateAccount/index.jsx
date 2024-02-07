@@ -28,7 +28,6 @@ const CreateAccount = () => {
           <option value="savings">Savings Account</option>
         </select>
       </div>
-
       <CreateAccountForm userRole={role} />
     </div>
   );

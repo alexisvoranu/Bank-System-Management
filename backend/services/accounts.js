@@ -69,3 +69,22 @@ export const getAccountsForPerson = async (id) => {
         }
     })
 }
+
+export const getLastSavedIBAN = async () => {
+    try {
+        const latestAccount = await Account.findOne({
+            attributes: ['iban'],
+            order: [['createdAt', 'DESC']], // Or any other field that indicates the order of records
+            limit: 1 // Limit to only get the latest record
+        });
+
+        if (!latestAccount) {
+            throw new Error("No accounts found in the database.");
+        }
+
+        return latestAccount.iban;
+    } catch (error) {
+        console.error("Error fetching last saved IBAN:", error);
+        throw error;
+    }
+};
