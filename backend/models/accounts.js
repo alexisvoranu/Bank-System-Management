@@ -25,26 +25,30 @@ export const AccountTemplate = (db, DataTypes) => {
         },
         value: {
             type: DataTypes.FLOAT,
-            allowNull: false
+            allowNull: true
         },
         type: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        interest: {
-            type: DataTypes.FLOAT,
+        period: {
+            type: DataTypes.STRING,
             allowNull: true
         },
-        
-    }, 
-    {
-        indexes: [
-            {
-                unique: true,
-                fields: ['iban']
-            }
-        ],
-        underscore: true
-    }
+        interest: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+
+    },
+        {
+            indexes: [
+                {
+                    unique: true,
+                    fields: ['iban']
+                }
+            ],
+            underscore: true
+        }
     )
 }

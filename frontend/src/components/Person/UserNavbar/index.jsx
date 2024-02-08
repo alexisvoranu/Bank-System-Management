@@ -8,7 +8,7 @@ const UserNavbar = () => {
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
-    //extragem datele utilizatorului
+
     const storedUserDetails = localStorage.getItem("userDetails");
     if (storedUserDetails) {
       setUserDetails(JSON.parse(storedUserDetails));

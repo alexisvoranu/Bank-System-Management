@@ -15,12 +15,14 @@ const getById = async (req, res) => {
 };
 
 const create = async (req, res) => {
-    if (!req.body.iban || !req.body.dateOpened || !req.body.currency || !req.body.value || !req.body.type) {
+    if (!req.body.iban || !req.body.dateOpened || !req.body.currency || !req.body.type) {
         return res.status(404).send({ message: "Missing properties" });
     }
 
-    const existingAccounts = await accountsService.getAccounts({ iban: req.body.iban, dateOpened: req.body.dateOpened, expirationDate: req.body.expirationDate,
-        currency: req.body.currency, value: req.body.value, type: req.body.type, interest: req.body.interest });
+    const existingAccounts = await accountsService.getAccounts({
+        iban: req.body.iban, dateOpened: req.body.dateOpened, expirationDate: req.body.expirationDate,
+        currency: req.body.currency, value: req.body.value, type: req.body.type, period: req.body.period, interest: req.body.interest
+    });
     if (existingAccounts.length !== 0) {
         return res.status(400).send({ message: "Account already exists" });
     }
@@ -42,31 +44,44 @@ const remove = (req, res) => {
     res.send();
 }
 
-const getAccountsForPerson = async(req, res) => {
-    if(!req.query.personId){
-        return res.status(400).send({message: "The person id is missing"})
+const removeAllAccounts = (req, res) => {
+    accountsService.removeAllAccounts();
+    res.send();
+}
+
+const getAccountsForPerson = async (req, res) => {
+    if (!req.query.personId) {
+        return res.status(400).send({ message: "The person id is missing" })
     }
 
     const foundAccountsList = await accountsService.getAccountsForPerson(req.query.personId)
 
-     res.status(200).json(foundAccountsList).send()
+    res.status(200).json(foundAccountsList).send()
 }
 
 const getLastSavedIBAN = async (req, res) => {
     try {
         const lastSavedIBAN = await accountsService.getLastSavedIBAN();
-        res.status(200).send({ iban: lastSavedIBAN });
+        if (lastSavedIBAN === null) {
+            res.status(200).send({ iban: null });
+        } else {
+            res.status(200).send({ iban: lastSavedIBAN });
+        }
     } catch (error) {
+        console.error("Error fetching last saved IBAN:", error);
         res.status(500).send({ message: "Error fetching last saved IBAN" });
     }
 };
+
+
 
 export {
     getAccounts,
     getById,
     create,
-    update,  
+    update,
     remove,
     getAccountsForPerson,
-    getLastSavedIBAN 
+    getLastSavedIBAN,
+    removeAllAccounts
 }

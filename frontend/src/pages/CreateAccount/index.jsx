@@ -22,7 +22,7 @@ const CreateAccount = () => {
           aria-label="Default select example"
           onChange={(e) => handleRoleChange(e.target.value)}
         >
-          <option selected>Open this select menu</option>
+          <option selected>Select account type</option>
           <option value="current">Current Account</option>
           <option value="deposit">Deposit Account</option>
           <option value="savings">Savings Account</option>

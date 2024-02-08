@@ -4,22 +4,16 @@ import { SERVER_URL } from "../../../constants";
 
 const CreateAccountForm = ({ userRole }) => {
   const [iban, setIban] = useState("");
-  const [dateOpened, setDateOpened] = useState("");
-  const [currency, setCurrency] = useState("");
-  const [period, setPeriod] = useState("");
-  const [expirationDate, setExpirationDate] = useState("");
-  const [value, setValue] = useState("");
-  const [type, setType] = useState("");
-  const [interest, setInterest] = useState("");
+  const [currency, setCurrency] = useState(null);
+  const [period, setPeriod] = useState(null);
+  const [expirationDate, setExpirationDate] = useState(null);
+  const [value, setValue] = useState(null);
+  const [interest, setInterest] = useState(null);
   const [alert, setAlert] = useState({ show: false, type: "", message: "" });
 
   //Data curenta
   const currentDate = new Date();
   const formattedDate = currentDate.toISOString().slice(0, 10);
-
-  const onChangeDateOpened = (event) => {
-    setDateOpened(event.target.value);
-  };
 
   const onChangeExpirationDate = (event) => {
     setExpirationDate(event.target.value);
@@ -37,30 +31,29 @@ const CreateAccountForm = ({ userRole }) => {
     setValue(event.target.value);
   };
 
-  const onChangeType = (event) => {
-    setType(event.target.value);
-  };
-
   const onChangeInterest = (event) => {
     setInterest(event.target.value);
   };
 
   function calculateExpirationDate(months) {
-    const expirationDate = new Date(currentDate);
-    expirationDate.setMonth(expirationDate.getMonth() + parseInt(months));
-    return expirationDate.toISOString().slice(0, 10);
+    const EstimatedExpirationDate = new Date(currentDate);
+    EstimatedExpirationDate.setMonth(
+      EstimatedExpirationDate.getMonth() + parseInt(months)
+    );
+    return EstimatedExpirationDate.toISOString().slice(0, 10);
   }
 
   const onChangePeriod = (event) => {
     setPeriod(event.target.value);
     const selectedMonths = event.target.value.split(" ")[0];
-    const expirationDate = calculateExpirationDate(selectedMonths);
-    document.getElementById("expirationDate").value = expirationDate;
+    const EstimatedExpirationDate = calculateExpirationDate(selectedMonths);
+    document.getElementById("expirationDate").value = EstimatedExpirationDate;
+    setExpirationDate(EstimatedExpirationDate);
     let StaticInterest = 0.0;
-    if (selectedMonths === 3) StaticInterest = 6;
-    else if (selectedMonths === 6) StaticInterest = 6.75;
-    else if (selectedMonths === 12) StaticInterest = 7.75;
-    else if (selectedMonths === 24) StaticInterest = 8.25;
+    if (selectedMonths == 3) StaticInterest = 6.0;
+    else if (selectedMonths == 6) StaticInterest = 6.75;
+    else if (selectedMonths == 12) StaticInterest = 7.75;
+    else if (selectedMonths == 24) StaticInterest = 8.25;
     let interestString = "";
     interestString += StaticInterest + " %";
     document.getElementById("interest").value = interestString;
@@ -71,47 +64,58 @@ const CreateAccountForm = ({ userRole }) => {
     create();
   };
 
+  let createURL = SERVER_URL;
+  createURL += "/accounts/create";
+
+  let lastIBANURL = SERVER_URL;
+  lastIBANURL += "/accounts/getLastIBAN";
+
+  let fetchRes = fetch(lastIBANURL);
+
+  fetchRes
+    .then((res) => res.json())
+    .then((d) => {
+      let IBANinput = document.getElementById("IBANinput");
+
+      let ibanString = "";
+      if (d.iban === null || d.iban === undefined) {
+        ibanString = "RAIF000000000000000000000";
+      } else {
+        ibanString = d.iban;
+      }
+
+      const ibanSubstring = ibanString.substring(4);
+
+      const ibanNumber = parseInt(ibanSubstring);
+
+      const incrementedNumber = ibanNumber + 1;
+
+      const paddedNumber = String(incrementedNumber).padStart(20, "0");
+
+      ibanString = "RAIF" + paddedNumber;
+
+      ibanString = ibanString.padEnd(24, "0");
+
+      IBANinput.setAttribute("placeholder", ibanString);
+
+      setIban(ibanString);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
   const create = () => {
     const accountDetails = {
-      iban: "RAIF2983484236489",
-      dateOpened: "2021-03-11T19:00:00.000Z",
-      expirationDate: null,
-      currency: "RON",
-      value: 0,
-      type: "current",
+      iban: iban,
+      dateOpened: currentDate,
+      expirationDate: expirationDate,
+      currency: currency,
+      value: value,
+      type: userRole,
       personId: 1,
-      interest: null,
+      period: period,
+      interest: interest,
     };
-
-    let createURL = SERVER_URL;
-    createURL += "/accounts/create";
-
-    let lastIBANURL = SERVER_URL;
-    lastIBANURL += "/accounts/getLastIBAN";
-
-    let fetchRes = fetch(lastIBANURL);
-
-    fetchRes
-      .then((res) => res.json())
-      .then((d) => {
-        // Asigurați-vă că IBANinput este definit
-        let IBANinput = document.getElementById("IBANinput");
-
-        let ibanString = d.iban;
-
-        const ibanSubstring = ibanString.substring(4);
-
-        const ibanNumber = parseInt(ibanSubstring);
-
-        const incrementedNumber = ibanNumber + 1;
-
-        ibanString = "RAIF" + incrementedNumber;
-
-        IBANinput.setAttribute("value", ibanString);
-      })
-      .catch((error) => {
-        console.error("A apărut o eroare:", error);
-      });
 
     fetch(createURL, {
       method: "POST",
@@ -126,14 +130,14 @@ const CreateAccountForm = ({ userRole }) => {
             setAlert({
               show: true,
               type: "alert-warning",
-              message: "Missing iban, dateOpened, currency or type!",
+              message: "Missing currency!",
             });
             break;
           case 400:
             setAlert({
               show: true,
               type: "alert-danger",
-              message: "Email already in use!",
+              message: "IBAN already in use!",
             });
             break;
           case 201:
@@ -148,7 +152,7 @@ const CreateAccountForm = ({ userRole }) => {
         //pentru a face alerta sa dispara dupa o secunda
         setTimeout(() => {
           setAlert({ show: false, type: "", message: "" });
-        }, 1000);
+        }, 3000);
       })
 
       .catch((error) => {
@@ -160,12 +164,13 @@ const CreateAccountForm = ({ userRole }) => {
         });
         setTimeout(() => {
           setAlert({ show: false, type: "", message: "" });
-        }, 1000);
+        }, 3000);
       });
   };
 
   return (
     <div>
+      {/* CURRENT */}
       {userRole === "current" && (
         <form className="create-account-form" onSubmit={handleCreate}>
           <div className="mx-auto col-md-3 Inputform">
@@ -277,7 +282,7 @@ const CreateAccountForm = ({ userRole }) => {
             >
               <option selected>Open this select menu</option>
               <option value="3 months">3 months</option>
-              <option value="3 months">6 months</option>
+              <option value="6 months">6 months</option>
               <option value="12 months">12 months</option>
               <option value="24 months">24 months</option>
             </select>
@@ -293,6 +298,19 @@ const CreateAccountForm = ({ userRole }) => {
               className="form-control"
               type="text"
               readOnly
+            />
+          </div>
+
+          <div className="mx-auto col-md-3 LoginDiv">
+            <label className="label" htmlFor="value">
+              Value:
+            </label>
+            <input
+              id="value"
+              onChange={onChangeValue}
+              placeholder="1000"
+              className="form-control"
+              type="number"
             />
           </div>
 
@@ -372,6 +390,15 @@ const CreateAccountForm = ({ userRole }) => {
             Create account
           </button>
         </form>
+      )}
+      {/* Alert container */}
+      {alert.show && (
+        <div
+          className={`alert ${alert.type} d-flex align-items-center`}
+          role="alert"
+        >
+          <div>{alert.message}</div>
+        </div>
       )}
     </div>
   );

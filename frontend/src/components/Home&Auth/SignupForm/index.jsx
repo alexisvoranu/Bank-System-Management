@@ -47,9 +47,9 @@ const SignupForm = () => {
     let signUpURL = SERVER_URL;
     signUpURL += "/persons/create";
 
-    fetch(signUpURL, {
+   fetch(signUpURL, {
       method: "POST",
-      headers: {
+      headers: { 
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userDetails),

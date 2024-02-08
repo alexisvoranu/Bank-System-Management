@@ -3,9 +3,9 @@ import { Account } from "../models/config.js";
 
 export const getAccounts = async (query) => {
     delete query.id;
-    
+
     const whereConditions = Object.keys(query).map(key => {
- 
+
         if (key === "iban") {
             return { [key]: { [Op.like]: `%${query[key]}%` } }
         }
@@ -14,7 +14,7 @@ export const getAccounts = async (query) => {
     });
 
     return await Account.findAll({
-        attributes: ['id', 'iban', 'dateOpened', 'expirationDate', 'currency', 'value', 'type', 'interest'],
+        attributes: ['id', 'iban', 'dateOpened', 'expirationDate', 'currency', 'value', 'type', 'period', 'interest'],
         where: whereConditions
     });
 };
@@ -22,7 +22,7 @@ export const getAccounts = async (query) => {
 export const getById = async (id) => {
 
     return await Account.findOne({
-        attributes: ['id', 'iban', 'dateOpened', 'expirationDate', 'currency', 'value', 'type', 'interest'],
+        attributes: ['id', 'iban', 'dateOpened', 'expirationDate', 'currency', 'value', 'type', 'period', 'interest'],
         where: {
             id: id
         }
@@ -61,9 +61,15 @@ export const remove = (id) => {
     });
 }
 
+export const removeAllAccounts = () => {
+    Account.destroy({
+        truncate: true
+    });
+}
+
 export const getAccountsForPerson = async (id) => {
     return await Account.findAll({
-        attributes: ['id', 'iban', 'dateOpened', 'expirationDate', 'currency', 'value', 'type', 'interest'],
+        attributes: ['id', 'iban', 'dateOpened', 'expirationDate', 'currency', 'value', 'type', 'period', 'interest'],
         where: {
             personId: id
         }
@@ -74,12 +80,12 @@ export const getLastSavedIBAN = async () => {
     try {
         const latestAccount = await Account.findOne({
             attributes: ['iban'],
-            order: [['createdAt', 'DESC']], // Or any other field that indicates the order of records
-            limit: 1 // Limit to only get the latest record
+            order: [['createdAt', 'DESC']],
+            limit: 1
         });
 
         if (!latestAccount) {
-            throw new Error("No accounts found in the database.");
+            return null;
         }
 
         return latestAccount.iban;
@@ -88,3 +94,4 @@ export const getLastSavedIBAN = async () => {
         throw error;
     }
 };
+

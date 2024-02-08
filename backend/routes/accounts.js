@@ -15,4 +15,6 @@ router.put("/update", accountController.update);
 
 router.delete("/remove/:id", accountController.remove);
 
+router.delete("/removeAll", accountController.removeAllAccounts);
+
 router.post("/create", accountController.create);

@@ -1,15 +1,8 @@
-.navbar{
-    font-size: 20px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: rgb(24, 200, 212);
+* {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-#a1{
-    margin-left: 10px;
-    font-weight: bolder;
-}
-
-.navbar-nav {
-    cursor: pointer;
-    font-weight: bolder;
-}
