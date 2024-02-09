@@ -18,3 +18,8 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.p {
+  margin-top: -10px;
+  margin-bottom: -10px;
+}

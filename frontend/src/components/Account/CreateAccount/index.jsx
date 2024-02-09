@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./style.css";
 import { SERVER_URL } from "../../../constants";
+import { useNavigate } from "react-router-dom";
 
 const CreateAccountForm = ({ userRole }) => {
   const [iban, setIban] = useState("");
@@ -10,6 +11,8 @@ const CreateAccountForm = ({ userRole }) => {
   const [value, setValue] = useState(null);
   const [interest, setInterest] = useState(null);
   const [alert, setAlert] = useState({ show: false, type: "", message: "" });
+
+  const navigate = useNavigate();
 
   //Data curenta
   const currentDate = new Date();
@@ -57,6 +60,7 @@ const CreateAccountForm = ({ userRole }) => {
     let interestString = "";
     interestString += StaticInterest + " %";
     document.getElementById("interest").value = interestString;
+    setInterest(interestString);
   };
 
   const handleCreate = (event) => {
@@ -146,6 +150,7 @@ const CreateAccountForm = ({ userRole }) => {
               type: "alert-success",
               message: "Account created successfully!",
             });
+            navigate("/userhome");
             break;
         }
 

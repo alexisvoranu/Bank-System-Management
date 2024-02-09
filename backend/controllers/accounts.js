@@ -51,13 +51,18 @@ const removeAllAccounts = (req, res) => {
 
 const getAccountsForPerson = async (req, res) => {
     if (!req.query.personId) {
-        return res.status(400).send({ message: "The person id is missing" })
+        return res.status(400).json({ message: "The person id is missing" });
     }
 
-    const foundAccountsList = await accountsService.getAccountsForPerson(req.query.personId)
-
-    res.status(200).json(foundAccountsList).send()
+    try {
+        const foundAccountsList = await accountsService.getAccountsForPerson(req.query.personId);
+        res.status(200).json(foundAccountsList);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ message: "An error occurred while fetching the accounts" });
+    }
 }
+
 
 const getLastSavedIBAN = async (req, res) => {
     try {

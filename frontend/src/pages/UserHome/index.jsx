@@ -7,15 +7,10 @@ import { SERVER_URL } from "../../constants";
 const UserHome = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [accountList, setAccountList] = useState(null);
-  const [iban, setIban] = useState("");
 
   useEffect(() => {
     getUserDetailsFromLocalStorage();
   }, []);
-
-  const onChangeIban = (event) => {
-    setIban(event.target.value);
-  };
 
   const getUserDetailsFromLocalStorage = () => {
     const storedUserDetails = localStorage.getItem("userDetails");
@@ -24,19 +19,24 @@ const UserHome = () => {
     }
   };
 
-  useEffect(() => {
-    getAccounts();
-  }, [userDetails]);
+  let userId;
+  if (userDetails && userDetails.id) {
+    userId = parseInt(userDetails.id);
+  }
 
   const getAccounts = () => {
-    fetch(
-      `http://localhost:8080/api/v1/accounts/getAccountsForPerson?personId=1`
-    )
+    fetch(`${SERVER_URL}/accounts/getAccountsForPerson?personId=${userId}`)
       .then((res) => {
         return res.json();
       })
       .then((data) => setAccountList(data));
   };
+
+  useEffect(() => {
+    if (userDetails) {
+      getAccounts();
+    }
+  }, [userDetails]);
 
   return (
     <div className="main-organizer">
@@ -46,11 +46,13 @@ const UserHome = () => {
       )}
       {accountList && accountList.length > 0 ? (
         <div className="events-list">
-          <div className="list-group lista">
-            {accountList.map((account) => (
-              <AccountCard key={account.id} {...account} />
-            ))}
-          </div>
+          {accountList.map((account) => (
+            <AccountCard
+              key={account.id}
+              {...account}
+              style={{ width: "20%" }}
+            />
+          ))}
         </div>
       ) : (
         <p className="no-events-message">This event group has no events.</p>
