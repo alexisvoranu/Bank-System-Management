@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import { SERVER_URL } from "../../../constants";
 import { useNavigate } from "react-router-dom";
@@ -11,8 +11,20 @@ const CreateAccountForm = ({ userRole }) => {
   const [value, setValue] = useState(null);
   const [interest, setInterest] = useState(null);
   const [alert, setAlert] = useState({ show: false, type: "", message: "" });
+  const [userDetails, setUserDetails] = useState(null);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getUserDetailsFromLocalStorage();
+  }, []);
+
+  const getUserDetailsFromLocalStorage = () => {
+    const storedUserDetails = localStorage.getItem("userDetails");
+    if (storedUserDetails) {
+      setUserDetails(JSON.parse(storedUserDetails));
+    }
+  };
 
   //Data curenta
   const currentDate = new Date();
@@ -116,7 +128,7 @@ const CreateAccountForm = ({ userRole }) => {
       currency: currency,
       value: value,
       type: userRole,
-      personId: 1,
+      personId: userDetails.id,
       period: period,
       interest: interest,
     };

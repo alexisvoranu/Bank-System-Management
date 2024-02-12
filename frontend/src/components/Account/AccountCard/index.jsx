@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import { SERVER_URL } from "../../../constants";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AccountCard = (accountDetails) => {
   let type = "";
   if (accountDetails.type == "current") type = "Current Account";
   else if (accountDetails.type == "deposit") type = "Deposit Account";
   else if (accountDetails.type == "savings") type = "Savings Account";
+
+  const navigate = useNavigate();
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -30,6 +33,20 @@ const AccountCard = (accountDetails) => {
     : null;
 
   const value = accountDetails.value ? accountDetails.value : 0;
+
+  const handleSeeDetails = () => {
+    const details = {
+      iban: accountDetails.iban,
+      expirationDate: accountDetails.expirationDate,
+      currency: accountDetails.currency,
+      value: accountDetails.value,
+      type: accountDetails.type,
+      period: accountDetails.period,
+      interest: accountDetails.interest,
+    };
+
+    navigate("/detailedAccount", { state: { details } });
+  };
 
   return (
     <>
@@ -58,15 +75,9 @@ const AccountCard = (accountDetails) => {
               Interest: {interest}
             </h6>
           )}
-          <Link
-            to={{
-              pathname: "/detailedAccount",
-              state: { accountDetails: accountDetails },
-            }}
-            className="btn btn-primary Details"
-          >
-            Details
-          </Link>
+          <button className="btn btn-primary" onClick={handleSeeDetails}>
+            See events
+          </button>
         </div>
       </div>
     </>
