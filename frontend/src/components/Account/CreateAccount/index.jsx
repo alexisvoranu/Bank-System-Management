@@ -174,7 +174,7 @@ const CreateAccountForm = ({ userRole }) => {
   };
 
   return (
-    <div>
+    <div id="CreateAccountForm">
       {/* CURRENT */}
       {userRole === "current" && (
         <form className="create-account-form" onSubmit={handleCreate}>

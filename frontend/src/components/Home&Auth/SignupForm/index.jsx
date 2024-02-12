@@ -47,9 +47,9 @@ const SignupForm = () => {
     let signUpURL = SERVER_URL;
     signUpURL += "/persons/create";
 
-   fetch(signUpURL, {
+    fetch(signUpURL, {
       method: "POST",
-      headers: { 
+      headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userDetails),
@@ -101,89 +101,91 @@ const SignupForm = () => {
   return (
     <>
       {/* Formular de înregistrare */}
-      <form className="signup-form" onSubmit={handleSignup}>
-        <div className="mx-auto col-md-3 Inputform FirstForm">
-          <label htmlFor="floatingInput" className="form-label">
-            Full Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            placeholder="Isvoranu Alexandru"
-            required
-            onChange={onChangeName}
-          />
-        </div>
-        <div className="mx-auto col-md-3 Inputform">
-          <label htmlFor="birthDate" className="form-label">
-            Birth Date
-          </label>
-          <input
-            type="date"
-            className="form-control"
-            id="birthDate"
-            onChange={onChangeBirthDate}
-            required
-          />
-        </div>
-        <div className="mx-auto col-md-3 Inputform">
-          <label htmlFor="floatingInput" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            placeholder="name@example.com"
-            required
-            onChange={onChangeEmail}
-          />
-        </div>
-        <div className="mx-auto col-md-3 Inputform">
-          <label htmlFor="floatingInput" className="form-label">
-            Phone
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="phone"
-            placeholder="07201234567"
-            required
-            onChange={onChangePhone}
-          />
-        </div>
-        <div className="mx-auto col-md-3 Inputform">
-          <label htmlFor="floatingPassword" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Password"
-            required
-            onChange={onChangePassowrd}
-          />
-        </div>
+      <div id="SignUpForm">
+        <form className="signup-form" onSubmit={handleSignup}>
+          <div className="mx-auto col-md-3 Inputform FirstForm">
+            <label htmlFor="floatingInput" className="form-label">
+              Full Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              placeholder="Isvoranu Alexandru"
+              required
+              onChange={onChangeName}
+            />
+          </div>
+          <div className="mx-auto col-md-3 Inputform">
+            <label htmlFor="birthDate" className="form-label">
+              Birth Date
+            </label>
+            <input
+              type="date"
+              className="form-control"
+              id="birthDate"
+              onChange={onChangeBirthDate}
+              required
+            />
+          </div>
+          <div className="mx-auto col-md-3 Inputform">
+            <label htmlFor="floatingInput" className="form-label">
+              Email address
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              placeholder="name@example.com"
+              required
+              onChange={onChangeEmail}
+            />
+          </div>
+          <div className="mx-auto col-md-3 Inputform">
+            <label htmlFor="floatingInput" className="form-label">
+              Phone
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="phone"
+              placeholder="07201234567"
+              required
+              onChange={onChangePhone}
+            />
+          </div>
+          <div className="mx-auto col-md-3 Inputform">
+            <label htmlFor="floatingPassword" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              placeholder="Password"
+              required
+              onChange={onChangePassowrd}
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="btn btn-primary mb-3 btn-create-account"
-        >
-          Create account
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="btn btn-primary mb-3 btn-create-account"
+          >
+            Create account
+          </button>
+        </form>
 
-      {/* Alert container */}
-      {alert.show && (
-        <div
-          className={`alert ${alert.type} d-flex align-items-center`}
-          role="alert"
-        >
-          <div>{alert.message}</div>
-        </div>
-      )}
+        {/* Alert container */}
+        {alert.show && (
+          <div
+            className={`alert ${alert.type} d-flex align-items-center`}
+            role="alert"
+          >
+            <div>{alert.message}</div>
+          </div>
+        )}
+      </div>
     </>
   );
 };

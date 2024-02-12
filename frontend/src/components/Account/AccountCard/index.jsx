@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import { SERVER_URL } from "../../../constants";
+import { Link } from "react-router-dom";
 
 const AccountCard = (accountDetails) => {
   let type = "";
@@ -57,6 +58,15 @@ const AccountCard = (accountDetails) => {
               Interest: {interest}
             </h6>
           )}
+          <Link
+            to={{
+              pathname: "/detailedAccount",
+              state: { accountDetails: accountDetails },
+            }}
+            className="btn btn-primary Details"
+          >
+            Details
+          </Link>
         </div>
       </div>
     </>

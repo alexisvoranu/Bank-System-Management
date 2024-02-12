@@ -1,6 +1,1 @@
-## Description
-
-
-## Project Theme
-**Bank System Management**
-
+Developed a dynamic web application using Express.js and React to efficiently manage bank accounts and cards for different users. Leveraging 20 endpoints for seamless integration with a database, the platform allows users to add, edit, and delete accounts, also related to associated cards in their portofolio. I have implemented intuitive React components for an engaging user interface, creating a feature-rich experience for Online Banking, and Express.js backend ensures data security and optimal performance.
